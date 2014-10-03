@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{781D14B2-D60E-457E-8E44-F257239D2BA3}</ProjectGuid>
+    <ProjectGuid>{BD9A92CD-056E-49A5-B863-76A7BAC26442}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PebbleSharp.Core.Tests</RootNamespace>
-    <AssemblyName>PebbleSharp.Core.Tests</AssemblyName>
+    <RootNamespace>PebbleSharp.Net45.Tests</RootNamespace>
+    <AssemblyName>PebbleSharp.Net45.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -35,9 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Moq">
-      <HintPath>..\packages\Moq.4.2.1409.1722\lib\net40\Moq.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -53,24 +50,23 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="AbstractTests\BaseCrc32Tests.cs" />
-    <Compile Include="AbstractTests\BasePebbleBundleTests.cs" />
-    <Compile Include="PebbleTests.cs" />
+    <Compile Include="Crc32Net45Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\ResourceManager.cs" />
-    <Compile Include="Responses\ResponseGenerator.cs" />
+    <Compile Include="BundleNet45Tests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PebbleSharp.Core.Tests\PebbleSharp.Core.Tests.csproj">
+      <Project>{781D14B2-D60E-457E-8E44-F257239D2BA3}</Project>
+      <Name>PebbleSharp.Core.Tests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PebbleSharp.Core\PebbleSharp.Core.csproj">
-      <Project>{ae0f69ff-97c2-4e55-a3c9-b73e68668dda}</Project>
+      <Project>{AE0F69FF-97C2-4E55-A3C9-B73E68668DDA}</Project>
       <Name>PebbleSharp.Core</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
-    <None Include="packages.config" />
-    <EmbeddedResource Include="Resources\demo.pbw" />
-    <EmbeddedResource Include="Resources\Pebble-2.1-v1_5.pbz" />
+    <ProjectReference Include="..\PebbleSharp.Net45\PebbleSharp.Net45.csproj">
+      <Project>{40bd0369-85e6-4712-a28c-0c9178fd6f33}</Project>
+      <Name>PebbleSharp.Net45</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

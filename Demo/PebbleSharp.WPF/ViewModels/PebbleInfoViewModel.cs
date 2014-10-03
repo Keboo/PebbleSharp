@@ -8,6 +8,7 @@ using PebbleSharp.Core;
 using PebbleSharp.Core.Bundles;
 using PebbleSharp.Core.Responses;
 using PebbleSharp.WPF.Messages;
+using PebbleSharp.Net45;
 
 namespace PebbleSharp.WPF.ViewModels
 {
@@ -98,7 +99,7 @@ namespace PebbleSharp.WPF.ViewModels
             if (openDialog.ShowDialog() == true)
             {
                 var bundle = new FirmwareBundle();
-                using (var zip = new Zip.Zip())
+                using (var zip = new Zip())
                 {
                     bundle.Load(openDialog.OpenFile(), zip);
                 }

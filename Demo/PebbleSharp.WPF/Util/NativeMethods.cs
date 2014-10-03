@@ -16,8 +16,6 @@ namespace PebbleSharp.WPF.Util
         static NativeMethods()
         {
             _windowHandle = App.MainWindowHandle;
-            if (_windowHandle == IntPtr.Zero)
-                throw new Exception("MainWindowHandle not set");
         }
 
         public static void SendMessage( AppCommandCode command )
@@ -26,7 +24,11 @@ namespace PebbleSharp.WPF.Util
                 throw new ArgumentException("A command is required", "command");
 
             var commandId = (IntPtr)( (int) command << 16 );
-            SendMessageW( _windowHandle, WM_APPCOMMAND, _windowHandle, commandId);
+            var windowHandle = App.MainWindowHandle;
+            if (windowHandle != IntPtr.Zero)
+            {
+                SendMessageW( windowHandle, WM_APPCOMMAND, windowHandle, commandId );
+            }
         }
     }
 

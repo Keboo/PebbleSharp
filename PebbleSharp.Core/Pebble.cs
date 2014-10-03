@@ -65,65 +65,6 @@ namespace PebbleSharp.Core
         public bool IsAlive { get; private set; }
         public TimeSpan ResponseTimeout { get; set; }
 
-        //TODO: This should be pushed to the platform code
-        /// <summary>
-        ///     Returns one of the paired Pebbles, or a specific one
-        ///     when a four-character ID is provided.  Convenience function for
-        ///     when you know there's only one, mostly.
-        /// </summary>
-        /// <param name="pebbleId"></param>
-        /// <returns></returns>
-        /// <exception cref="PebbleNotFoundException">
-        ///     When no Pebble or no Pebble of the
-        ///     specified id was found.
-        /// </exception>
-        //public static Pebble GetPebble( string pebbleId = null )
-        //{
-        //    List<Pebble> pebbleList = DetectPebbles();
-        //
-        //    if (pebbleList.Count == 0)
-        //    {
-        //        throw new PebbleNotFoundException("No paired Pebble found.");
-        //    }
-        //
-        //    if (pebbleId == null)
-        //    {
-        //        return pebbleList[0];
-        //    }
-        //
-        //    Pebble ret = pebbleList.FirstOrDefault(peb => peb.PebbleID == pebbleId);
-        //    if (ret == null)
-        //    {
-        //        throw new PebbleNotFoundException(pebbleId);
-        //    }
-        //    return ret;
-        //}
-
-        //TODO: This should be pushed to the platform code
-        //public static List<Pebble> DetectPebbles()
-        //{
-        //    var client = new BluetoothClient();
-        //    
-        //    // A list of all BT devices that are paired, in range, and named "Pebble *" 
-        //    var bluetoothDevices = client.DiscoverDevices(20, true, false, false).
-        //                                  Where(bdi => bdi.DeviceName.StartsWith("Pebble "));
-        //    
-        //    // A list of all available serial ports with some metadata including the PnP device ID,
-        //    // which in turn contains a BT device address we can search for.
-        //    var portListCollection = ( new ManagementObjectSearcher("SELECT * FROM Win32_SerialPort") ).Get();
-        //    var portList = new ManagementBaseObject[portListCollection.Count];
-        //    portListCollection.CopyTo(portList, 0);
-        //    
-        //    // Match bluetooth devices and serial ports, then create Pebbles out of them.
-        //    // Seems like a LINQ join should do this much more cleanly. 
-        //    
-        //    return ( from device in bluetoothDevices
-        //             from port in portList
-        //             where ( (string) port["PNPDeviceID"] ).Contains(device.DeviceAddress.ToString())
-        //             select new Pebble(port["DeviceID"] as string, device.DeviceName.Substring(7)) ).ToList();
-        //    return null;
-        //}
-
         /// <summary>
         ///     Set the capabilities you want to tell the Pebble about.
         ///     Should be called before connecting.

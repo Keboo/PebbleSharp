@@ -28,15 +28,15 @@ namespace PebbleSharp.Net45
             return ( from device in bluetoothDevices
                      from port in portList
                      where ( (string)port["PNPDeviceID"] ).Contains( device.DeviceAddress.ToString() )
-                     select (Pebble)new PebbleNet45( new PebbleBluetoothConnection( (string)port["DeviceID"] ), 
+                     select (Pebble)new PebbleNet45( new PebbleBluetoothConnection( (string)port["DeviceID"] ),
                          device.DeviceName.Substring( 7 ) ) ).ToList();
         }
 
-        private PebbleNet45( PebbleBluetoothConnection connection, string pebbleId ) 
-            : base(connection, pebbleId)
+        private PebbleNet45( PebbleBluetoothConnection connection, string pebbleId )
+            : base( connection, pebbleId )
         { }
 
-        private class PebbleBluetoothConnection : IBluetoothConnection
+        private sealed class PebbleBluetoothConnection : IBluetoothConnection, IDisposable
         {
             private readonly SerialPort _SerialPort;
             public event EventHandler<BytesReceivedEventArgs> DataReceived = delegate { };
@@ -48,6 +48,11 @@ namespace PebbleSharp.Net45
                 _SerialPort.WriteTimeout = 500;
 
                 _SerialPort.DataReceived += SerialPortOnDataReceived;
+            }
+
+            ~PebbleBluetoothConnection()
+            {
+                Dispose( false );
             }
 
             public Task OpenAsync()
@@ -64,6 +69,20 @@ namespace PebbleSharp.Net45
             public void Write( byte[] data )
             {
                 _SerialPort.Write( data, 0, data.Length );
+            }
+
+            public void Dispose()
+            {
+                Dispose( true );
+                GC.SuppressFinalize( this );
+            }
+
+            private void Dispose( bool disposing )
+            {
+                if (disposing)
+                {
+                    _SerialPort.Dispose();
+                }
             }
 
             private void SerialPortOnDataReceived( object sender, SerialDataReceivedEventArgs e )

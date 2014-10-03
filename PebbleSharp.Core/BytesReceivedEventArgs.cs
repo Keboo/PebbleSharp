@@ -1,7 +1,9 @@
-﻿namespace PebbleSharp.Core
+﻿using System;
+
+namespace PebbleSharp.Core
 {
     //TODO: Better namespace
-    public class BytesReceivedEventArgs
+    public class BytesReceivedEventArgs : EventArgs
     {
         public BytesReceivedEventArgs()
             : this ( new byte[0] )
