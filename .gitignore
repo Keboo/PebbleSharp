@@ -4,3 +4,16 @@
 /PebbleSharp.Core.Tests/obj
 /PebbleSharp.Net45/bin
 /PebbleSharp.Net45/obj
+/PebbleSharp.Net45.Tests/bin/Debug
+/PebbleSharp.WinRT/bin/Debug
+/PebbleSharp.WinRT/obj/Debug
+/PebbleSharp.Net45.Tests/obj/Debug
+/PebbleSharp.Mobile/PebbleSharp.Mobile.WinPhone
+/PebbleSharp.Mobile/PebbleSharp.Mobile.iOS
+/PebbleSharp.Mobile/PebbleSharp.Mobile.Android/obj/Debug
+/Demo/PebbleSharp.WPF
+/PebbleSharp.Driod/obj/Debug
+/PebbleSharp.iOS/obj/Debug
+/PebbleSharp.Mobile/PebbleSharp.Mobile
+/PebbleSharp.sln.DotSettings.user
+/PebbleSharp.v12.suo
