@@ -24,3 +24,8 @@
 /PebbleSharp.WinRT.Tests/bin
 /PebbleSharp.WinRT.Tests/obj
 /PebbleSharp.Universal/PebbleSharp.Universal.WindowsPhone/PebbleSharp.Universal.WindowsPhone.csproj.user
+/Demo/PebbleSharp.Universal/PebbleSharp.Universal.Windows/bin
+/Demo/PebbleSharp.Universal/PebbleSharp.Universal.Windows/obj
+/Demo/PebbleSharp.Universal/PebbleSharp.Universal.WindowsPhone/bin
+/Demo/PebbleSharp.Universal/PebbleSharp.Universal.WindowsPhone/obj
+/Demo/PebbleSharp.Universal/PebbleSharp.Universal.WindowsPhone/PebbleSharp.Universal.WindowsPhone.csproj.user

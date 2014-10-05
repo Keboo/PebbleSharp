@@ -19,16 +19,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PebbleSharp.WinRT", "Pebble
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PebbleSharp.WinRT.Tests", "PebbleSharp.WinRT.Tests\PebbleSharp.WinRT.Tests.csproj", "{72C9782D-6CBE-4AE5-BAB7-36D74DB8C0D3}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "PebbleSharp.Universal.Shared", "PebbleSharp.Universal\PebbleSharp.Universal.Shared\PebbleSharp.Universal.Shared.shproj", "{5732948C-77A3-415C-8204-F6647DEC222A}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "PebbleSharp.Universal.Shared", "Demo\PebbleSharp.Universal\PebbleSharp.Universal.Shared\PebbleSharp.Universal.Shared.shproj", "{5732948C-77A3-415C-8204-F6647DEC222A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PebbleSharp.Universal.Windows", "PebbleSharp.Universal\PebbleSharp.Universal.Windows\PebbleSharp.Universal.Windows.csproj", "{89E8645D-FD7B-4195-8D1F-7E0717424E4B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PebbleSharp.Universal.Windows", "Demo\PebbleSharp.Universal\PebbleSharp.Universal.Windows\PebbleSharp.Universal.Windows.csproj", "{89E8645D-FD7B-4195-8D1F-7E0717424E4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PebbleSharp.Universal.WindowsPhone", "PebbleSharp.Universal\PebbleSharp.Universal.WindowsPhone\PebbleSharp.Universal.WindowsPhone.csproj", "{3AD18D88-6C9A-4F70-98FD-BFA10D8E1148}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PebbleSharp.Universal.WindowsPhone", "Demo\PebbleSharp.Universal\PebbleSharp.Universal.WindowsPhone\PebbleSharp.Universal.WindowsPhone.csproj", "{3AD18D88-6C9A-4F70-98FD-BFA10D8E1148}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		PebbleSharp.Universal\PebbleSharp.Universal.Shared\PebbleSharp.Universal.Shared.projitems*{5732948c-77a3-415c-8204-f6647dec222a}*SharedItemsImports = 13
-		PebbleSharp.Universal\PebbleSharp.Universal.Shared\PebbleSharp.Universal.Shared.projitems*{3ad18d88-6c9a-4f70-98fd-bfa10d8e1148}*SharedItemsImports = 4
+		Demo\PebbleSharp.Universal\PebbleSharp.Universal.Shared\PebbleSharp.Universal.Shared.projitems*{5732948c-77a3-415c-8204-f6647dec222a}*SharedItemsImports = 13
+		Demo\PebbleSharp.Universal\PebbleSharp.Universal.Shared\PebbleSharp.Universal.Shared.projitems*{3ad18d88-6c9a-4f70-98fd-bfa10d8e1148}*SharedItemsImports = 4
 		PebbleSharp.Universal\PebbleSharp.Universal.Shared\PebbleSharp.Universal.Shared.projitems*{89e8645d-fd7b-4195-8d1f-7e0717424e4b}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
