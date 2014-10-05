@@ -17,3 +17,10 @@
 /PebbleSharp.Mobile/PebbleSharp.Mobile
 /PebbleSharp.sln.DotSettings.user
 /PebbleSharp.v12.suo
+/PebbleSharp.Universal/PebbleSharp.Universal.Windows/bin
+/PebbleSharp.Universal/PebbleSharp.Universal.Windows/obj
+/PebbleSharp.Universal/PebbleSharp.Universal.WindowsPhone/bin
+/PebbleSharp.Universal/PebbleSharp.Universal.WindowsPhone/obj
+/PebbleSharp.WinRT.Tests/bin
+/PebbleSharp.WinRT.Tests/obj
+/PebbleSharp.Universal/PebbleSharp.Universal.WindowsPhone/PebbleSharp.Universal.WindowsPhone.csproj.user
