@@ -5,7 +5,7 @@ using Windows.Storage.Streams;
 
 namespace PebbleSharp.WinRT
 {
-    internal class StreamWatcher
+    internal sealed class StreamWatcher : IDisposable
     {
         private readonly CancellationTokenSource _tokenSource = new CancellationTokenSource();
         private readonly DataReader _reader;
@@ -26,6 +26,11 @@ namespace PebbleSharp.WinRT
 
             Task.Factory.StartNew( CheckForData, _tokenSource.Token, TaskCreationOptions.LongRunning,
                 TaskScheduler.Default );
+        }
+
+        ~StreamWatcher()
+        {
+            Dispose( false );
         }
 
         public uint ReadSize { get; set; }
@@ -54,6 +59,20 @@ namespace PebbleSharp.WinRT
         public void Stop()
         {
             _tokenSource.Cancel();
+        }
+
+        public void Dispose()
+        {
+            Dispose( true );
+            GC.SuppressFinalize( this );
+        }
+
+        private void Dispose( bool disposing )
+        {
+            if ( disposing )
+            {
+                _tokenSource.Dispose();
+            }
         }
     }
 

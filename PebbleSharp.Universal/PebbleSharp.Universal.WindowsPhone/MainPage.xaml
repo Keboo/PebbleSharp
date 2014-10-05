@@ -22,17 +22,38 @@
     <Grid>
         <Pivot x:Uid="Pivot" Title="SIMPLY PEBBLE" CommonNavigationTransitionInfo.IsStaggerElement="True">
             <PivotItem
-                x:Uid="PivotItem1"
                 Margin="19,14.5,0,0"
                 Header="watch"
                 DataContext="{Binding Info}"
                 CommonNavigationTransitionInfo.IsStaggerElement="True">
-                <Grid>
-                    <StackPanel Margin="5">
-                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding TimeDisplay}"/>
-                        <Button Content="Sync Now" Command="{Binding SetTimeCommand}" />
-                    </StackPanel>
-                </Grid>
+                <StackPanel Margin="5">
+                    <StackPanel.Resources>
+                        <DataTemplate x:Key="FirmwareTemplate">
+                            <TextBlock>
+                                <Run Text="Version:"/>
+                                <Run Text="{Binding Version}"/>
+                                <LineBreak/>
+                                <Run Text="Commit:"></Run>
+                                <Run Text="{Binding Commit}"/>
+                                <Run Text="{Binding Timestamp}"/>
+                                <LineBreak/>
+                                <Run Text="Hardware Platform:" />
+                                <Run Text="{Binding HardwarePlatform}"/>
+                                <LineBreak/>
+                                <Run Text="Metadata Version:" />
+                                <Run Text="{Binding MetadataVersion}"/>
+                            </TextBlock>
+                        </DataTemplate>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource BodyTextBlockStyle}"/>
+                    </StackPanel.Resources>
+                    <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding TimeDisplay}"/>
+                    <Button Content="Sync Now" Command="{Binding SetTimeCommand}" />
+                    <TextBlock Text="Firmware" />
+                    <ContentControl Content="{Binding Firmware}" ContentTemplate="{StaticResource FirmwareTemplate}"/>
+                    <TextBlock Text="Recovery Firmware" Margin="0,10,0,0"/>
+                    <ContentControl Content="{Binding RecoveryFirmware}" ContentTemplate="{StaticResource FirmwareTemplate}" />
+
+                </StackPanel>
             </PivotItem>
 
             <PivotItem

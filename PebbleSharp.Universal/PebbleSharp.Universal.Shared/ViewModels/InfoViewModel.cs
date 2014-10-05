@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using PebbleSharp.Core;
 using PebbleSharp.Core.Responses;
 using PebbleSharp.Universal.Universal.Common;
 
@@ -28,9 +29,24 @@ namespace PebbleSharp.Universal.Universal.ViewModels
             set { Set( ref _timeDisplay, value ); }
         }
 
+        private FirmwareVersion _Firmware;
+        public FirmwareVersion Firmware
+        {
+            get { return _Firmware; }
+            set { Set( ref _Firmware, value ); }
+        }
+
+        private FirmwareVersion _RecoveryFirmware;
+        public FirmwareVersion RecoveryFirmware
+        {
+            get { return _RecoveryFirmware; }
+            set { Set( ref _RecoveryFirmware, value ); }
+        }
+
         public override async Task RefreshAsync()
         {
             await GetPebbleTimeAsyc();
+            await LoadFirmwareAsync();
         }
 
         private async void OnSetTime()
@@ -64,6 +80,16 @@ namespace PebbleSharp.Universal.Universal.ViewModels
             else
             {
                 TimeDisplay = "Failed to get time from Pebble: " + timeResponse.ErrorMessage;
+            }
+        }
+
+        private async Task LoadFirmwareAsync()
+        {
+            FirmwareVersionResponse firmwareResponse = await Pebble.GetFirmwareVersionAsync();
+            if ( firmwareResponse.Success )
+            {
+                Firmware = firmwareResponse.Firmware;
+                RecoveryFirmware = firmwareResponse.RecoveryFirmware;
             }
         }
     }
