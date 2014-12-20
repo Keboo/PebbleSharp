@@ -48,7 +48,6 @@ namespace PebbleSharp.Universal.Universal.ViewModels
         public async Task ScanForPairedDevicesAsync()
         {
             _pebbles.Clear();
-            _pebbles.Clear();
             foreach ( var pebble in await PebbleWinRT.DetectPebbles() )
                 _pebbles.Add( pebble );
 

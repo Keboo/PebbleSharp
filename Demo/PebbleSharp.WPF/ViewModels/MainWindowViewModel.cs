@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Data;
 using GalaSoft.MvvmLight;
 using PebbleSharp.Net45;
@@ -15,7 +17,16 @@ namespace PebbleSharp.WPF.ViewModels
         {
             if ( IsInDesignMode == false )
             {
-                _pebbleDevices = new List<PebbleViewModel>( PebbleNet45.DetectPebbles().Select( x => new PebbleViewModel( x ) ) );
+                try
+                {
+                    var pebbles = PebbleNet45.DetectPebbles();
+                    _pebbleDevices = new List<PebbleViewModel>( pebbles.Select( x => new PebbleViewModel( x ) ) );
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
             }
         }
 

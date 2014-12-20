@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO.Ports;
-using System.Linq;
-using System.Management;
-using System.Threading.Tasks;
+﻿using InTheHand.Net.Bluetooth;
 using InTheHand.Net.Sockets;
 using PebbleSharp.Core;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Net.Sockets;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace PebbleSharp.Net45
 {
@@ -17,18 +19,10 @@ namespace PebbleSharp.Net45
 
             // A list of all BT devices that are paired, in range, and named "Pebble *" 
             var bluetoothDevices = client.DiscoverDevices( 20, true, false, false ).
-                Where( bdi => bdi.DeviceName.StartsWith( "Pebble " ) );
-
-            // A list of all available serial ports with some metadata including the PnP device ID,
-            // which in turn contains a BT device address we can search for.
-            var portListCollection = ( new ManagementObjectSearcher( "SELECT * FROM Win32_SerialPort" ) ).Get();
-            var portList = new ManagementBaseObject[portListCollection.Count];
-            portListCollection.CopyTo( portList, 0 );
+                Where( bdi => bdi.DeviceName.StartsWith( "Pebble " ) ).ToList();
 
             return ( from device in bluetoothDevices
-                     from port in portList
-                     where ( (string)port["PNPDeviceID"] ).Contains( device.DeviceAddress.ToString() )
-                     select (Pebble)new PebbleNet45( new PebbleBluetoothConnection( (string)port["DeviceID"] ),
+                     select (Pebble)new PebbleNet45( new PebbleBluetoothConnection( device ),
                          device.DeviceName.Substring( 7 ) ) ).ToList();
         }
 
@@ -38,16 +32,16 @@ namespace PebbleSharp.Net45
 
         private sealed class PebbleBluetoothConnection : IBluetoothConnection, IDisposable
         {
-            private readonly SerialPort _SerialPort;
+            private CancellationTokenSource _tokenSource;
+
+            private readonly BluetoothDeviceInfo _deviceInfo;
+            private NetworkStream _networkStream;
+            private BluetoothClient _client;
             public event EventHandler<BytesReceivedEventArgs> DataReceived = delegate { };
 
-            public PebbleBluetoothConnection( string port )
+            public PebbleBluetoothConnection( BluetoothDeviceInfo deviceInfo )
             {
-                _SerialPort = new SerialPort( port, 19200 );
-                _SerialPort.ReadTimeout = 500;
-                _SerialPort.WriteTimeout = 500;
-
-                _SerialPort.DataReceived += SerialPortOnDataReceived;
+                _deviceInfo = deviceInfo;
             }
 
             ~PebbleBluetoothConnection()
@@ -57,18 +51,36 @@ namespace PebbleSharp.Net45
 
             public Task OpenAsync()
             {
-                _SerialPort.Open();
-                return Task.FromResult( (object)null );
+                return Task.Run( () =>
+                {
+                    _tokenSource = new CancellationTokenSource();
+                    _client = new BluetoothClient();
+                    _client.Connect( _deviceInfo.DeviceAddress, BluetoothService.SerialPort );
+                    _networkStream = _client.GetStream();
+                    Task.Factory.StartNew( CheckForData, _tokenSource.Token, TaskCreationOptions.LongRunning,
+                        TaskScheduler.Default );
+                } );
             }
 
             public void Close()
             {
-                _SerialPort.Close();
+                if (_tokenSource != null)
+                {
+                    _tokenSource.Cancel();
+                }
+                
+                if ( _client.Connected )
+                {
+                    _client.Close();
+                }
             }
 
             public void Write( byte[] data )
             {
-                _SerialPort.Write( data, 0, data.Length );
+                if ( _networkStream.CanWrite )
+                {
+                    _networkStream.Write( data, 0, data.Length );
+                }
             }
 
             public void Dispose()
@@ -79,20 +91,37 @@ namespace PebbleSharp.Net45
 
             private void Dispose( bool disposing )
             {
-                if (disposing)
+                if ( disposing )
                 {
-                    _SerialPort.Dispose();
+                    Close();
                 }
             }
 
-            private void SerialPortOnDataReceived( object sender, SerialDataReceivedEventArgs e )
+            private async void CheckForData()
             {
-                int bytesToRead = _SerialPort.BytesToRead;
-                if ( bytesToRead > 0 )
+                try
                 {
-                    var bytes = new byte[bytesToRead];
-                    _SerialPort.Read( bytes, 0, bytesToRead );
-                    DataReceived( this, new BytesReceivedEventArgs( bytes ) );
+                    while ( true )
+                    {
+                        if ( _tokenSource.IsCancellationRequested )
+                            return;
+
+                        if ( _networkStream.CanRead && _networkStream.DataAvailable )
+                        {
+                            var buffer = new byte[256];
+                            var numRead = _networkStream.Read( buffer, 0, buffer.Length );
+                            Array.Resize( ref buffer, numRead );
+                            DataReceived( this, new BytesReceivedEventArgs( buffer ) );
+                        }
+
+                        if ( _tokenSource.IsCancellationRequested )
+                            return;
+                        await Task.Delay( 10 );
+                    }
+                }
+                catch ( Exception ex )
+                {
+                    Debug.WriteLine( ex );
                 }
             }
         }
