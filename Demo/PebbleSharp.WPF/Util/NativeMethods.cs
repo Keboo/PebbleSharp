@@ -11,13 +11,6 @@ namespace PebbleSharp.WPF.Util
 
         private const int WM_APPCOMMAND = 0x0319;
 
-        private static readonly IntPtr _windowHandle;
-        
-        static NativeMethods()
-        {
-            _windowHandle = App.MainWindowHandle;
-        }
-
         public static void SendMessage( AppCommandCode command )
         {
             if (command == AppCommandCode.None)

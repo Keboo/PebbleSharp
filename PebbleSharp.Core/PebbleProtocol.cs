@@ -14,7 +14,7 @@ namespace PebbleSharp.Core
     internal class PebbleProtocol
     {
         private readonly IBluetoothConnection _blueToothConnection;
-        private readonly List<byte> _byteStream = new List<byte>();
+        private readonly Queue<byte> _byteStream = new Queue<byte>();
         private ushort _CurrentEndpoint;
         private ushort _CurrentPayloadSize;
         private WaitingStates _WaitingState;
@@ -68,19 +68,17 @@ namespace PebbleSharp.Core
             byte[] payloadSize = Util.GetBytes( length );
             byte[] endPoint = Util.GetBytes( endpoint );
 
-            //Debug.WriteLine( "Sending message.." );
-            //Debug.WriteLine( "\tPLS: " + BitConverter.ToString( payloadSize ) );
-            //Debug.WriteLine( "\tEP:  " + BitConverter.ToString( _endPoint ) );
-            //Debug.WriteLine( "\tPL:  " + BitConverter.ToString( payload ) );
-
-            _blueToothConnection.Write(Util.CombineArrays(payloadSize, endPoint, payload));
+            _blueToothConnection.Write( Util.CombineArrays( payloadSize, endPoint, payload ) );
         }
-        
+
         private void SerialPortDataReceived( object sender, BytesReceivedEventArgs e )
         {
             lock ( _byteStream )
             {
-                _byteStream.AddRange( e.Bytes );
+                foreach ( var b in e.Bytes )
+                {
+                    _byteStream.Enqueue( b );
+                }
                 // Keep reading until there's no complete chunk to be read.
                 while ( ReadAndProcessBytes() )
                 { }
@@ -106,12 +104,8 @@ namespace PebbleSharp.Core
                     if ( _byteStream.Count >= 4 )
                     {
                         // Read new payload size and endpoint
-                        _CurrentPayloadSize = Util.GetUInt16(ReadBytes(2));
-                        _CurrentEndpoint = Util.GetUInt16(ReadBytes(2));
-
-                        //Debug.WriteLine( "Message metadata received:" );
-                        //Debug.WriteLine( "\tPLS: " + _CurrentPayloadSize.ToString() );
-                        //Debug.WriteLine( "\tEP:  " + _CurrentEndpoint.ToString() );
+                        _CurrentPayloadSize = Util.GetUInt16( ReadBytes( 2 ) );
+                        _CurrentEndpoint = Util.GetUInt16( ReadBytes( 2 ) );
 
                         _WaitingState = WaitingStates.Payload;
                         return true;
@@ -121,7 +115,7 @@ namespace PebbleSharp.Core
                     if ( _byteStream.Count >= _CurrentPayloadSize )
                     {
                         // All of the payload's been received, so read it.
-                        var buffer = ReadBytes(_CurrentPayloadSize);
+                        var buffer = ReadBytes( _CurrentPayloadSize );
                         RawMessageReceived( this, new RawMessageReceivedEventArgs( _CurrentEndpoint, buffer ) );
                         // Reset state
                         _WaitingState = WaitingStates.NewMessage;
@@ -137,9 +131,7 @@ namespace PebbleSharp.Core
 
         private byte[] ReadBytes( int count )
         {
-            var rv = _byteStream.Take( count ).ToArray();
-            _byteStream.RemoveRange( 0, count );
-            return rv;
+            return Enumerable.Range( 0, count ).Select( x => _byteStream.Dequeue() ).ToArray();
         }
 
         private enum WaitingStates

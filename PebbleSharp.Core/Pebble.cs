@@ -433,6 +433,7 @@ namespace PebbleSharp.Core
         private void RawMessageReceived(object sender, RawMessageReceivedEventArgs e)
         {
             Debug.WriteLine("Received Message for Endpoint: {0}", (Endpoint)e.Endpoint);
+            Debug.WriteLine("    " + BitConverter.ToString(e.Payload));
 
             IResponse response = _responseManager.HandleResponse((Endpoint)e.Endpoint, e.Payload);
 
