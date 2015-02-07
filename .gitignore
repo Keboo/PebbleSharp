@@ -29,3 +29,6 @@
 /Demo/PebbleSharp.Universal/PebbleSharp.Universal.WindowsPhone/bin
 /Demo/PebbleSharp.Universal/PebbleSharp.Universal.WindowsPhone/obj
 /Demo/PebbleSharp.Universal/PebbleSharp.Universal.WindowsPhone/PebbleSharp.Universal.WindowsPhone.csproj.user
+/PebbleCmd/bin/Debug
+/PebbleCmd/obj/Debug
+/PebbleSharp.Core.Tests/PebbleSharp.Core.Tests.csproj.user

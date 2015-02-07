@@ -2,7 +2,7 @@
 
 namespace PebbleSharp.Core.Responses
 {
-    [AttributeUsage( AttributeTargets.Class )]
+    [AttributeUsage( AttributeTargets.Class, AllowMultiple = true )]
     internal class EndpointAttribute : Attribute
     {
         public EndpointAttribute()

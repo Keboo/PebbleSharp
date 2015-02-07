@@ -23,11 +23,10 @@ namespace PebbleSharp.Core
             Assembly assembly = typeof( IResponse ).GetTypeInfo().Assembly;
             foreach ( Type responseType in assembly.ExportedTypes.Where( x => x.GetTypeInfo().ImplementedInterfaces.Contains( typeof( IResponse ) ) ) )
             {
-                EndpointAttribute endpointAttribute =
+                var endpointAttributes =
                     responseType.GetTypeInfo().GetCustomAttributes( typeof( EndpointAttribute ), false )
-                                .OfType<EndpointAttribute>()
-                                .FirstOrDefault();
-                if ( endpointAttribute != null )
+                        .OfType<EndpointAttribute>();
+                foreach ( var endpointAttribute in endpointAttributes )
                 {
                     List<ResponseMatch> responseMatches;
                     if ( _endpointToResponseMap.TryGetValue( endpointAttribute.Endpoint, out responseMatches ) == false )

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace PebbleSharp.Core
 {
@@ -9,9 +10,8 @@ namespace PebbleSharp.Core
 
         public UUID( byte[] data )
         {
-            if (data == null) throw new ArgumentNullException("data");
-            if (data.Length != SIZE) throw new ArgumentException(string.Format("UUID data must be {0} bytes", SIZE), "data");
-
+            if ( data == null ) throw new ArgumentNullException( "data" );
+            if ( data.Length != SIZE ) throw new ArgumentException( string.Format( "UUID data must be {0} bytes", SIZE ), "data" );
             _data = data;
         }
 
@@ -23,14 +23,16 @@ namespace PebbleSharp.Core
         public override bool Equals( object obj )
         {
             var other = obj as UUID;
-            if (other != null)
-                return Equals(other);
+            if ( other != null )
+                return Equals( other );
             return false;
         }
 
         protected bool Equals( UUID other )
         {
-            return Equals(_data, other._data);
+            if ( other == null )
+                return false;
+            return !_data.Where((t, i) => t != other._data[i]).Any();
         }
 
         public override int GetHashCode()
@@ -45,7 +47,7 @@ namespace PebbleSharp.Core
                     "{0:x2}{1:x2}{2:x2}{3:x2}-{4:x2}{5:x2}-{6:x2}{7:x2}-{8:x2}{9:x2}-{10:x2}{11:x2}{12:x2}{13:x2}{14:x2}{15:x2}",
                     _data[0], _data[1], _data[2], _data[3], _data[4], _data[5], _data[6], _data[7], _data[8], _data[9],
                     _data[10],
-                    _data[11], _data[12], _data[13], _data[14], _data[15]);
+                    _data[11], _data[12], _data[13], _data[14], _data[15] );
         }
     }
 }

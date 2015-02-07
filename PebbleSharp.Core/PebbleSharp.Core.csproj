@@ -72,6 +72,7 @@
     <Compile Include="Responses\TimeResponse.cs" />
     <Compile Include="Serialization\BinarySerializer.cs" />
     <Compile Include="Serialization\SerializableAttribute.cs" />
+    <Compile Include="Unpack.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="UUID.cs" />
   </ItemGroup>

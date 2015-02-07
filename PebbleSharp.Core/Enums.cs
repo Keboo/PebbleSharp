@@ -77,4 +77,12 @@ namespace PebbleSharp.Core
         Debug = 200,
         Verbose = 250
     }
+
+    public enum AppMessage : byte
+    {
+        Push = 0x01,
+        Request = 0x02,
+        Ack = 0xFF,
+        Nack = 0x7F
+    }
 }

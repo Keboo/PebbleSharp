@@ -63,6 +63,7 @@ namespace PebbleSharp.Core
         }
 
         public bool IsAlive { get; private set; }
+
         public TimeSpan ResponseTimeout { get; set; }
 
         /// <summary>
