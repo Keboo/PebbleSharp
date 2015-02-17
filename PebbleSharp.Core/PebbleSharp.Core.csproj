@@ -60,6 +60,7 @@
     <Compile Include="Responses\AppBankInstallResponse.cs" />
     <Compile Include="Responses\AppbankResponse.cs" />
     <Compile Include="Responses\ApplicationMessageResponse.cs" />
+    <Compile Include="Responses\DataLogResponse.cs" />
     <Compile Include="Responses\EndpointAttribute.cs" />
     <Compile Include="Responses\FirmwareVersionResponse.cs" />
     <Compile Include="Responses\IResponse.cs" />

@@ -19,33 +19,18 @@ namespace PebbleSharp.Core.Responses
             get { return _UUID; }
         }
 
+        private byte _Tid;
+        public byte TID
+        {
+            get { return _Tid; }
+        }
+
         protected override void Load( byte[] payload )
         {
-            //byte[] data;
-            //if ( payload.Length > 0 )
-            //{
-            //    data = payload.Skip( 1 ).ToArray();
-            //}
-            //else
-            //{
-            //    data = new byte[0];
-            //}
-
-            //if ( Enum.IsDefined( typeof( AppMessage ), payload[0] ) )
-            //{
-            //    AppMessage message = (AppMessage)payload[0];
-            //    var messageBytes = Util.GetBytes( message.ToString().ToUpperInvariant(), false );
-            //    int messageLength = messageBytes.Length;
-            //    Array.Resize( ref messageBytes, messageLength + data.Length );
-            //    Array.Copy( data, 0, messageBytes, messageLength, data.Length );
-            //    data = messageBytes;
-            //}
             var data = payload;
 
             byte command;
-            byte tid;
-
-            var index = data.UnpackLE( 0, out command, out tid );
+            var index = data.UnpackLE( 0, out command, out _Tid );
 
             if ( command == 1 )
             {
@@ -120,6 +105,10 @@ namespace PebbleSharp.Core.Responses
                     _ParsedData[k.ToString()] = v;
                     //TODO: App keys
                 }
+            }
+            else
+            {
+                
             }
         }
     }

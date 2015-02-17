@@ -32,17 +32,23 @@ namespace PebbleSharp.Core
         PhoneControl = 33,
         ApplicationMessage = 48,
         Launcher = 49,
+        AppCustomize = 50,
         Logs = 2000,
         Ping = 2001,
         LogDump = 2002,
         Reset = 2003,
         App = 2004,
+        Mfg = 2004,
+        AppLogs = 2006,
         Notification = 3000,
+        Resource = 4000,
         SysReg = 5000,
         FctReg = 5001,
         AppManager = 6000,
         RunKeeper = 7000,
         PutBytes = 48879,
+        DataLog = 6778,
+        CoreDump = 9000,
         MaxEndpoint = 65535 //ushort.MaxValue
     }
 

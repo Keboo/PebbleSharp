@@ -13,7 +13,7 @@ namespace PebbleSharp.Core.Tests
         private const string TEST_PEBBLE_ID = "TESTID";
 
         [TestMethod]
-        [TestCategory("Core")]
+        [TestCategory( "Core" )]
         public void ConstructorTest()
         {
             var bluetoothConnection = new Mock<IBluetoothConnection>( MockBehavior.Strict );

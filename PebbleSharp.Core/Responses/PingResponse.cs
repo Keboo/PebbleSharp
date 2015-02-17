@@ -9,7 +9,7 @@ namespace PebbleSharp.Core.Responses
 
         protected override void Load( byte[] payload )
         {
-            if (payload.Length != 5)
+            if (payload.Length < 5)
             {
                 throw new ArgumentOutOfRangeException("payload", "Payload for PING must be five bytes");
             }

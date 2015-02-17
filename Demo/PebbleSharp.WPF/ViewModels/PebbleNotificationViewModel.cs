@@ -46,7 +46,7 @@ namespace PebbleSharp.WPF.ViewModels
                     await _pebble.NotificationMailAsync( Sender, Subject, Body );
                     break;
                 case NotificationTypes.SMS:
-                    await _pebble.NotificationSMSAsync( Sender, Body );
+                    await _pebble.NotificationSmsAsync( Sender, Body );
                     break;
                 case NotificationTypes.Facebook:
                     await _pebble.NotificationFacebookAsync( Sender, Body );
