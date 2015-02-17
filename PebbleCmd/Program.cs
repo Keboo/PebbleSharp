@@ -38,7 +38,13 @@ namespace PebbleCmd
 
         private static async Task ShowPebbleMenu( Pebble pebble )
         {
-            var menu = new Menu( "Disconnect", "Get Time" );
+            var menu = new Menu(
+                "Disconnect",
+                "Get Time",
+                "Set Current Time",
+                "Get Firmware Info",
+                "Send Ping",
+                "Media Commands" );
             while ( true )
             {
                 switch ( menu.ShowMenu() )
@@ -50,6 +56,40 @@ namespace PebbleCmd
                         var timeResult = await pebble.GetTimeAsync();
                         DisplayResult( timeResult, x => string.Format( "Pebble Time: " + x.Time.ToString( "G" ) ) );
                         break;
+                    case 2:
+                        await pebble.SetTimeAsync( DateTime.Now );
+                        goto case 1;
+                    case 3:
+                        var firmwareResult = await pebble.GetFirmwareVersionAsync();
+                        DisplayResult( firmwareResult,
+                            x => string.Join( Environment.NewLine, "Firmware", x.Firmware.ToString(),
+                                "Recovery Firmware", x.RecoveryFirmware.ToString() ) );
+                        break;
+                    case 4:
+                        var pingResult = await pebble.PingAsync();
+                        DisplayResult( pingResult, x => "Received Ping Response" );
+                        break;
+                    case 5:
+                        ShowMediaCommands( pebble );
+                        break;
+                }
+            }
+        }
+
+        private static void ShowMediaCommands( Pebble pebble )
+        {
+            Console.WriteLine( "Listening for media commands" );
+            pebble.RegisterCallback<MusicControlResponse>( result =>
+                DisplayResult( result, x => string.Format( "Media Control Response " + x.Command ) ) );
+
+            var menu = new Menu( "Return to menu" );
+
+            while ( true )
+            {
+                switch ( menu.ShowMenu() )
+                {
+                    case 0:
+                        return;
                 }
             }
         }
