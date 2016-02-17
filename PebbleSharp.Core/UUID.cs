@@ -15,6 +15,11 @@ namespace PebbleSharp.Core
             _data = data;
         }
 
+        public UUID(string s)
+        {
+            _data = FromString(s);
+        }
+
         public byte[] Data
         {
             get { return _data; }
@@ -40,6 +45,18 @@ namespace PebbleSharp.Core
             return ( _data != null ? _data.GetHashCode() : 0 );
         }
 
+        public byte[] FromString(string s)
+        {
+            if (s.Length != 36)
+            {
+                throw new ArgumentException("Invalid uuid string");
+            }
+            //22a27b9a-0b07-47af-ad87-b2c29305bab6
+            s = s.Replace("-", "");
+            var result= StringToByteArray(s);
+            return result;
+        }
+
         public override string ToString()
         {
             return
@@ -48,6 +65,14 @@ namespace PebbleSharp.Core
                     _data[0], _data[1], _data[2], _data[3], _data[4], _data[5], _data[6], _data[7], _data[8], _data[9],
                     _data[10],
                     _data[11], _data[12], _data[13], _data[14], _data[15] );
+        }
+
+        public static byte[] StringToByteArray(string hex)
+        {
+            return Enumerable.Range(0, hex.Length)
+                             .Where(x => x % 2 == 0)
+                             .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
+                             .ToArray();
         }
     }
 }

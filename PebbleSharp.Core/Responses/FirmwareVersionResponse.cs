@@ -34,7 +34,7 @@ namespace PebbleSharp.Core.Responses
             bool isRecovery = BitConverter.ToBoolean(data, 44);
             byte hardwarePlatform = data[45];
             byte metadataVersion = data[46];
-            return new FirmwareVersion(timestamp, version, commit, isRecovery, hardwarePlatform, metadataVersion);
+			return new FirmwareVersion(timestamp, version, commit, isRecovery, (Hardware)hardwarePlatform, metadataVersion);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace PebbleSharp.Core
         public string Filename { get; private set; }
 
         /// <summary> The firmware version required to run this application. </summary>
-        [DataMember(Name = "reqFwVer", IsRequired = true)]
+        [DataMember(Name = "reqFwVer", IsRequired = false)]
         public int RequiredFirmwareVersion { get; private set; }
 
         /// <summary> The time at which the application binary was created. (?) </summary>
