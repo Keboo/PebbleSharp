@@ -30,8 +30,7 @@ namespace PebbleSharp.Core
 			}
 			else
 			{
-				//this will actually flip it because it thinks it is big endian.
-				AppId = Util.GetInt32(payload, 17);
+                AppId = BitConverter.ToInt32(payload.Skip(16).Take(4).ToArray().Reverse().ToArray(),0);
 			}
 		}
 	}

@@ -101,12 +101,13 @@ namespace PebbleSharp.WPF.ViewModels
                 var bundle = new FirmwareBundle();
                 using (var zip = new Zip())
                 {
-                    bundle.Load(openDialog.OpenFile(), zip);
+                    zip.Open(openDialog.OpenFile());
+                    bundle.Load(zip,_pebble.Firmware.HardwarePlatform.GetSoftwarePlatform());
                 }
 
                 if (_pebble.IsAlive == false)
                     return;
-                await _pebble.InstallFirmwareAsync(bundle);
+                await _pebble.InstallClient.InstallFirmwareAsync(bundle);
             }
         }
 

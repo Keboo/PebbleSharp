@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PebbleSharp.Core", "PebbleSharp.Core\PebbleSharp.Core.csproj", "{AE0F69FF-97C2-4E55-A3C9-B73E68668DDA}"
 EndProject
@@ -31,7 +31,7 @@ Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Demo\PebbleSharp.Universal\PebbleSharp.Universal.Shared\PebbleSharp.Universal.Shared.projitems*{5732948c-77a3-415c-8204-f6647dec222a}*SharedItemsImports = 13
 		Demo\PebbleSharp.Universal\PebbleSharp.Universal.Shared\PebbleSharp.Universal.Shared.projitems*{3ad18d88-6c9a-4f70-98fd-bfa10d8e1148}*SharedItemsImports = 4
-		PebbleSharp.Universal\PebbleSharp.Universal.Shared\PebbleSharp.Universal.Shared.projitems*{89e8645d-fd7b-4195-8d1f-7e0717424e4b}*SharedItemsImports = 4
+		Demo\PebbleSharp.Universal\PebbleSharp.Universal.Shared\PebbleSharp.Universal.Shared.projitems*{89e8645d-fd7b-4195-8d1f-7e0717424e4b}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU

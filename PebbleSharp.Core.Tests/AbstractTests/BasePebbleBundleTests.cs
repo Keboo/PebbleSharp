@@ -18,7 +18,9 @@ namespace PebbleSharp.Core.Tests.AbstractTests
         {
             Stream testBundle = ResourceManager.GetAppBundle();
             var bundle = new AppBundle();
-            bundle.Load( testBundle, GetZip() );
+            var zip = GetZip();
+            zip.Open(testBundle);
+            bundle.Load(zip,SoftwarePlatform.APLITE );
 
             var manifest = bundle.Manifest;
             Assert.IsNotNull( manifest );
@@ -40,7 +42,6 @@ namespace PebbleSharp.Core.Tests.AbstractTests
             Assert.AreEqual( (uint)0, bundle.AppMetadata.IconResourceID );
             Assert.AreEqual( (uint)552, bundle.AppMetadata.Offset );
             Assert.AreEqual( (uint)2, bundle.AppMetadata.RelocationListItemCount );
-            Assert.AreEqual( (uint)3860, bundle.AppMetadata.RelocationListStart );
             Assert.AreEqual( 3, bundle.AppMetadata.SDKMajorVersion );
             Assert.AreEqual( 1, bundle.AppMetadata.SDKMinorVersion );
             Assert.AreEqual( "3.1", bundle.AppMetadata.SDKVersion );
@@ -57,7 +58,9 @@ namespace PebbleSharp.Core.Tests.AbstractTests
             Stream testBundle = ResourceManager.GetFirmwareBundle();
 
             var bundle = new FirmwareBundle();
-            bundle.Load( testBundle, GetZip() );
+            var zip = GetZip();
+            zip.Open(testBundle);
+            bundle.Load( zip,SoftwarePlatform.APLITE );
 
             Assert.IsNotNull( bundle.Firmware );
 

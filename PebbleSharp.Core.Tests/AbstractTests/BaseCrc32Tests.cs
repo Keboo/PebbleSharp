@@ -15,7 +15,7 @@ namespace PebbleSharp.Core.Tests.AbstractTests
         protected void RunGeneratesCorrectChecksumForApp()
         {
             var bundle = new AppBundle();
-            bundle.Load(ResourceManager.GetAppBundle(), GetZip());
+            bundle.Load(GetZip(),SoftwarePlatform.UNKNOWN);
 
             Assert.AreEqual(bundle.Manifest.Application.CRC, Crc32.Calculate(bundle.App));
         }
@@ -23,7 +23,7 @@ namespace PebbleSharp.Core.Tests.AbstractTests
         protected void RunGeneratesCorrectChecksumForFirmware()
         {
             var bundle = new FirmwareBundle();
-            bundle.Load(ResourceManager.GetFirmwareBundle(), GetZip());
+            bundle.Load(GetZip(),SoftwarePlatform.UNKNOWN);
 
             Assert.AreEqual(bundle.Manifest.Firmware.CRC, Crc32.Calculate(bundle.Firmware));
         }

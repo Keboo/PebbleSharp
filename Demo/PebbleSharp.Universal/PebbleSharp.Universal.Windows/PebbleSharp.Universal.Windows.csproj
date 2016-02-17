@@ -104,11 +104,11 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <ProjectReference Include="..\..\PebbleSharp.Core\PebbleSharp.Core.csproj">
+    <ProjectReference Include="..\..\..\PebbleSharp.Core\PebbleSharp.Core.csproj">
       <Project>{ae0f69ff-97c2-4e55-a3c9-b73e68668dda}</Project>
       <Name>PebbleSharp.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\PebbleSharp.WinRT\PebbleSharp.WinRT.csproj">
+    <ProjectReference Include="..\..\..\PebbleSharp.WinRT\PebbleSharp.WinRT.csproj">
       <Project>{c6f33ca9-eed4-4553-ae74-cd77e6bf3d75}</Project>
       <Name>PebbleSharp.WinRT</Name>
     </ProjectReference>

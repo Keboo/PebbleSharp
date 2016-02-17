@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="AppBank.cs" />
+    <Compile Include="AppInfo.cs" />
     <Compile Include="ApplicationManifest.cs" />
     <Compile Include="ApplicationMetadata.cs" />
     <Compile Include="BundleManifest.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Responses\AppBankInstallResponse.cs" />
     <Compile Include="Responses\AppbankResponse.cs" />
     <Compile Include="Responses\ApplicationMessageResponse.cs" />
+    <Compile Include="Responses\AppVersionResponse.cs" />
     <Compile Include="Responses\DataLogResponse.cs" />
     <Compile Include="Responses\EndpointAttribute.cs" />
     <Compile Include="Responses\FirmwareVersionResponse.cs" />

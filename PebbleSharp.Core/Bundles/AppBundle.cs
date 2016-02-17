@@ -10,7 +10,7 @@ namespace PebbleSharp.Core.Bundles
         public byte[] App { get; private set; }
 
         public ApplicationMetadata AppMetadata { get; private set; }
-        public PebbleSharp.Core.NonPortable.AppInfo AppInfo { get; private set; }
+        public PebbleSharp.Core.AppInfo AppInfo { get; private set; }
         
         protected override void LoadData( IZip zip )
         {
@@ -31,8 +31,8 @@ namespace PebbleSharp.Core.Bundles
             {
                 if (appinfoStream != null)
                 {
-                    var serializer = new DataContractJsonSerializer(typeof(PebbleSharp.Core.NonPortable.AppInfo));
-                    AppInfo = (PebbleSharp.Core.NonPortable.AppInfo)serializer.ReadObject(appinfoStream);
+                    var serializer = new DataContractJsonSerializer(typeof(PebbleSharp.Core.AppInfo));
+                    AppInfo = (PebbleSharp.Core.AppInfo)serializer.ReadObject(appinfoStream);
                 }
             }
         }

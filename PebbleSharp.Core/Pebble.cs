@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PebbleSharp.Core.Bundles;
-using PebbleSharp.Core.NonPortable.AppMessage;
+using PebbleSharp.Core.AppMessage;
 using PebbleSharp.Core.Responses;
 using PebbleSharp.Core.BlobDB;
 using PebbleSharp.Core.Install;
@@ -388,7 +388,6 @@ namespace PebbleSharp.Core
                 payloadDebugger.Append(string.Format("{0}:", b));
             }
 
-            Console.WriteLine(payloadDebugger.ToString());
         }
 
         public override string ToString()

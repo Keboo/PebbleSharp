@@ -4,6 +4,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Win32;
+using PebbleSharp.Core;
 using PebbleSharp.Core.Bundles;
 using PebbleSharp.WPF.Messages;
 using PebbleSharp.Net45;
@@ -91,12 +92,13 @@ namespace PebbleSharp.WPF.ViewModels
                 var bundle = new AppBundle();
                 using (var zip = new Zip())
                 {
-                    bundle.Load(openDialog.OpenFile(), zip);
+                    zip.Open(openDialog.OpenFile());
+                    bundle.Load(zip,_pebble.Firmware.HardwarePlatform.GetSoftwarePlatform());
                 }
 
                 if ( _pebble.IsAlive == false )
                     return;
-                await _pebble.InstallAppAsync( bundle );
+                await _pebble.InstallClient.InstallAppAsync( bundle );
                 await LoadAppsAsync();
             }
         }

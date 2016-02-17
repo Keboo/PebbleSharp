@@ -10,13 +10,13 @@ namespace PebbleSharp.Core.Bundles
         public virtual bool HasResources { get; private set; }
         public BundleManifest Manifest { get; private set; }
         public virtual byte[] Resources { get; private set; }
-		public Platform Platform { get; private set;}
+		public SoftwarePlatform Platform { get; private set;}
 
         protected abstract void LoadData(IZip zip);
 
 		protected string PlatformSubdirectory()
 		{
-			var platformSubdirectory = (Platform == Platform.UNKNOWN ? "" : Platform.ToString().ToLower()+"/");
+			var platformSubdirectory = (Platform == SoftwarePlatform.UNKNOWN ? "" : Platform.ToString().ToLower()+"/");
 			return platformSubdirectory;
 		}
 
@@ -34,7 +34,7 @@ namespace PebbleSharp.Core.Bundles
         /// </summary>
         /// <param name="bundle">The stream to the bundle.</param>
         /// <param name="zip">The zip library implementation.</param>
-		public void Load(IZip zip, Platform platform)
+		public void Load(IZip zip, SoftwarePlatform platform)
         {
 			Platform = platform;
             Manifest = LoadManifest (zip);

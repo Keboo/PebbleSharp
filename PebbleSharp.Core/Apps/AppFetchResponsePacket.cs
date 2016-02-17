@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using PebbleSharp.Core.Responses;
 namespace PebbleSharp.Core
 {
-	[Endpoint(Endpoint.AppFetch)
+	[Endpoint(Endpoint.AppFetch)]
 	public class AppFetchResponsePacket
 	{
 		public byte Command { get; set; }

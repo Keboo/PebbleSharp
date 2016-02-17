@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using PebbleSharp.Core.Responses;
 
-namespace PebbleSharp.Core.NonPortable.AppMessage
+namespace PebbleSharp.Core.AppMessage
 {
     //modeled after https://github.com/pebble/libpebble2/blob/master/libpebble2/services/appmessage.py
 	[Endpoint(Endpoint.ApplicationMessage)]
@@ -465,7 +464,7 @@ namespace PebbleSharp.Core.NonPortable.AppMessage
             {
                 if (value.Length <= ushort.MaxValue)
                 {
-                    Value = System.Text.UTF8Encoding.UTF8.GetString(value);
+                    Value = System.Text.UTF8Encoding.UTF8.GetString(value,0,value.Length);
                 }
                 else
                 {

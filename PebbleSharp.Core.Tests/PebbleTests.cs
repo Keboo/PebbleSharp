@@ -32,7 +32,7 @@ namespace PebbleSharp.Core.Tests
             var bluetoothConnection = new Mock<IBluetoothConnection>();
             var pebble = new TestPebble( bluetoothConnection.Object, TEST_PEBBLE_ID );
 
-            await pebble.InstallFirmwareAsync( null );
+            await pebble.InstallClient.InstallFirmwareAsync( null );
         }
 
         [TestMethod]
@@ -75,7 +75,7 @@ namespace PebbleSharp.Core.Tests
 
             var pebble = new TestPebble( bluetoothConnection.Object, TEST_PEBBLE_ID );
 
-            bool success = await pebble.InstallFirmwareAsync( bundle.Object );
+            bool success = await pebble.InstallClient.InstallFirmwareAsync( bundle.Object );
             Assert.IsTrue( success );
             bluetoothConnection.Verify();
         }
