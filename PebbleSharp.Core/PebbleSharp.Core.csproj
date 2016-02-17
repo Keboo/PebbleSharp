@@ -76,6 +76,20 @@
     <Compile Include="Unpack.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="UUID.cs" />
+    <Compile Include="AppMessage\AppMessagePacket.cs" />
+    <Compile Include="Apps\AppFetchRequestPacket.cs" />
+    <Compile Include="Apps\AppFetchResponsePacket.cs" />
+    <Compile Include="Apps\AppRunStatePacket.cs" />
+    <Compile Include="BlobDB\AppMetaData.cs" />
+    <Compile Include="BlobDB\BlobDBClient.cs" />
+    <Compile Include="BlobDB\BlobDBCommandPacket.cs" />
+    <Compile Include="BlobDB\BlobDBResponsePacket.cs" />
+    <Compile Include="BlobDB\TimelineAction.cs" />
+    <Compile Include="BlobDB\TimelineAttribute.cs" />
+    <Compile Include="BlobDB\TimelineItem.cs" />
+    <Compile Include="Install\InstallClient.cs" />
+    <Compile Include="PutBytes\PutBytesClient.cs" />
+    <Compile Include="PutBytes\PutBytesResponsePacket.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
