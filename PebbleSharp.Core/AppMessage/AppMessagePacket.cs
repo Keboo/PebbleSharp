@@ -446,7 +446,7 @@ namespace PebbleSharp.Core.AppMessage
             }
             set
             {
-                if(value!=null && value.EndsWith("\0"))
+                if (value != null && value.EndsWith("\0"))
                 {
                     base.Value = value.Substring(0, value.Length - 1);
                 }
@@ -459,7 +459,10 @@ namespace PebbleSharp.Core.AppMessage
 
         public override byte[] ValueBytes
         {
-            get { return System.Text.UTF8Encoding.UTF8.GetBytes(Value+"\0"); }
+            get
+            {
+                return System.Text.UTF8Encoding.UTF8.GetBytes(Value+"\0");
+            }
             set
             {
                 if (value.Length <= ushort.MaxValue)

@@ -60,7 +60,6 @@
     <Compile Include="ResponseManager.cs" />
     <Compile Include="Responses\AppBankInstallResponse.cs" />
     <Compile Include="Responses\AppbankResponse.cs" />
-    <Compile Include="Responses\ApplicationMessageResponse.cs" />
     <Compile Include="Responses\AppVersionResponse.cs" />
     <Compile Include="Responses\DataLogResponse.cs" />
     <Compile Include="Responses\EndpointAttribute.cs" />
@@ -69,7 +68,6 @@
     <Compile Include="Responses\MusicControlResponse.cs" />
     <Compile Include="Responses\PhoneVersionResponse.cs" />
     <Compile Include="Responses\PingResponse.cs" />
-    <Compile Include="Responses\PutBytesResponse.cs" />
     <Compile Include="Responses\ResponseBase.cs" />
     <Compile Include="Responses\SystemMessageResponse.cs" />
     <Compile Include="Responses\TimeResponse.cs" />

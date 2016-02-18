@@ -33,6 +33,7 @@ namespace PebbleCmd
             if ( result >= 0 && result < pebbles.Count )
             {
                 var selectedPebble = pebbles[result];
+                selectedPebble.RegisterCallback<AppMessagePacket>(ReceiveAppMessage);
                 Console.WriteLine( "Connecting to Pebble " + selectedPebble.PebbleID );
                 await selectedPebble.ConnectAsync();
                 Console.WriteLine( "Connected" );
@@ -177,15 +178,17 @@ namespace PebbleCmd
 					    //format a message
 					    var rand = new Random().Next();
 					    AppMessagePacket message = new AppMessagePacket();
-					    message.Values.Add(new AppMessageUInt32() { Value = (uint)rand });
-					    message.Values.Add(new AppMessageString() { Value = messageText });
+                        message.Command = (byte)Command.Push;
+					    message.Values.Add(new AppMessageUInt32() { Key=0,Value = (uint)rand });
+					    message.Values.Add(new AppMessageString() { Key=1,Value = messageText });
 					    message.ApplicationId = bundle.AppMetadata.UUID;
 					    message.TransactionId = 255;
 
 
 					    //send it
 					    Console.WriteLine("Sending Status "+rand+" to " + bundle.AppMetadata.UUID.ToString());
-					    pebble.SendApplicationMessage(message).Wait();
+                        var task = pebble.SendApplicationMessage(message);
+                        task.Wait();
 					    Console.WriteLine("Response received");
 				    }
 			    }
@@ -230,6 +233,11 @@ namespace PebbleCmd
                 Console.WriteLine( result.ErrorMessage );
                 Console.WriteLine( result.ErrorDetails.ToString() );
             }
+        }
+
+        private static void ReceiveAppMessage(AppMessagePacket response)
+        {
+            System.Console.WriteLine("Recieved App Message");
         }
     }
 }
