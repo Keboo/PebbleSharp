@@ -6,7 +6,6 @@ using PebbleSharp.Core;
 using PebbleSharp.Core.Responses;
 using System.IO;
 using PebbleSharp.Net45;
-using PebbleSharp.Core;
 using PebbleSharp.Core.Bundles;
 using PebbleSharp.Core.AppMessage;
 

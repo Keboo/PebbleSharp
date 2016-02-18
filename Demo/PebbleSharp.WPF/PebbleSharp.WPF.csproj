@@ -70,6 +70,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Messages\PebbleDisconnected.cs" />
     <Compile Include="Util\NativeMethods.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\PebbleAppsViewModel.cs" />
@@ -100,7 +101,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Messages\PebbleConnected.cs" />
-    <Compile Include="Messages\PebbleDisconnected.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

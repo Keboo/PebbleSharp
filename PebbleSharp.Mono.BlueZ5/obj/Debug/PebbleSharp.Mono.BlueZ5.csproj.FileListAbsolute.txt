@@ -1,0 +1,5 @@
+C:\Users\brook_000\Desktop\PebbleSharp\PebbleSharp\PebbleSharp.Mono.BlueZ5\bin\Debug\PebbleSharp.Mono.BlueZ5.dll
+C:\Users\brook_000\Desktop\PebbleSharp\PebbleSharp\PebbleSharp.Mono.BlueZ5\bin\Debug\PebbleSharp.Mono.BlueZ5.pdb
+C:\Users\brook_000\Desktop\PebbleSharp\PebbleSharp\PebbleSharp.Mono.BlueZ5\obj\Debug\PebbleSharp.Mono.BlueZ5.csprojResolveAssemblyReference.cache
+C:\Users\brook_000\Desktop\PebbleSharp\PebbleSharp\PebbleSharp.Mono.BlueZ5\obj\Debug\PebbleSharp.Mono.BlueZ5.dll
+C:\Users\brook_000\Desktop\PebbleSharp\PebbleSharp\PebbleSharp.Mono.BlueZ5\obj\Debug\PebbleSharp.Mono.BlueZ5.pdb

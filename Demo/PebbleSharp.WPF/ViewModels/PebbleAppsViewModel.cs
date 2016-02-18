@@ -59,7 +59,7 @@ namespace PebbleSharp.WPF.ViewModels
                 return;
 
             Loading = true;
-            var appBankContents = await _pebble.GetAppbankContentsAsync();
+            var appBankContents = await _pebble.InstallClient.GetAppbankContentsAsync();
             _apps.Clear();
             if ( appBankContents.Success )
                 foreach ( var app in appBankContents.AppBank.Apps )
