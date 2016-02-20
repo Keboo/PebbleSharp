@@ -40,6 +40,7 @@ namespace PebbleSharp.Core
                     responseMatches.Add( new ResponseMatch( func, endpointAttribute.GetPredicate() ) );
                 }
             }
+
         }
 
         public IResponseTransaction<T> GetTransaction<T>() where T : class, IResponse, new()

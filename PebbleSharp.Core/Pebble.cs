@@ -42,9 +42,9 @@ namespace PebbleSharp.Core
         {
 			ResponseTimeout = TimeSpan.FromSeconds( 5 );
             PebbleID = pebbleId;
-			this.BlobDBClient = new BlobDBClient(this);
-			this.PutBytesClient = new PutBytesClient(this);
-			this.InstallClient = new InstallClient(this);
+			BlobDBClient = new BlobDBClient(this);
+			PutBytesClient = new PutBytesClient(this);
+		    InstallClient = new InstallClient(this);
 
             _callbackHandlers = new Dictionary<Type, List<CallbackContainer>>();
 

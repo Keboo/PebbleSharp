@@ -54,8 +54,6 @@ namespace PebbleSharp.Core.AppMessage
             Values = new List<IAppMessageDictionaryEntry>();
         }
 
-
-
         public AppMessagePacket(byte[] bytes)
         {
 			Load(bytes);
@@ -69,87 +67,85 @@ namespace PebbleSharp.Core.AppMessage
 			index++;
 
 			Command = command;
-			//if (command == Command)
+			
+			TransactionId = bytes[index];
+			index++;
+
+			ApplicationId = new UUID(bytes.Skip(index).Take(16).ToArray());
+			index += 16;
+
+			int tupleCount = bytes[index];
+			index++;
+
+			for (int i = 0; i < tupleCount; i++)
 			{
-				TransactionId = bytes[index];
+				uint k;
+				byte t;
+				ushort l;
+
+				k = BitConverter.ToUInt32(bytes, index);
+				index += 4;
+
+				t = bytes[index];
 				index++;
 
-				ApplicationId = new UUID(bytes.Skip(index).Take(16).ToArray());
-				index += 16;
+				l = BitConverter.ToUInt16(bytes, index);
+				index += 2;
 
-				int tupleCount = bytes[index];
-				index++;
-
-				for (int i = 0; i < tupleCount; i++)
+				IAppMessageDictionaryEntry entry = null;
+				if (t == (byte)PackedType.Bytes)
 				{
-					uint k;
-					byte t;
-					ushort l;
-
-					k = BitConverter.ToUInt32(bytes, index);
-					index += 4;
-
-					t = bytes[index];
-					index++;
-
-					l = BitConverter.ToUInt16(bytes, index);
-					index += 2;
-
-					IAppMessageDictionaryEntry entry = null;
-					if (t == (byte)PackedType.Bytes)
+					entry = new AppMessageBytes() { Value = bytes.Skip(index).Take(l).ToArray() };
+				}
+				else if (t == (byte)PackedType.Signed)
+				{
+					if (l == 1)
 					{
-						entry = new AppMessageBytes() { Value = bytes.Skip(index).Take(l).ToArray() };
+						entry = new AppMessageInt8() { Value = Convert.ToSByte(bytes[index]) };
 					}
-					else if (t == (byte)PackedType.Signed)
+					else if (l == 2)
 					{
-						if (l == 1)
-						{
-							entry = new AppMessageInt8() { Value = Convert.ToSByte(bytes[index]) };
-						}
-						else if (l == 2)
-						{
-							entry = new AppMessageInt16() { Value = BitConverter.ToInt16(bytes, index) };
-						}
-						else if (l == 4)
-						{
-							entry = new AppMessageInt32() { Value = BitConverter.ToInt32(bytes, index) };
-						}
-						else
-						{
-							throw new InvalidOperationException("Invalid signed integer length");
-						}
+						entry = new AppMessageInt16() { Value = BitConverter.ToInt16(bytes, index) };
 					}
-					else if (t == (byte)PackedType.String)
+					else if (l == 4)
 					{
-						entry = new AppMessageString() { Value = System.Text.Encoding.UTF8.GetString(bytes, index, l) };
-					}
-					else if (t == (byte)PackedType.Unsigned)
-					{
-						if (l == 1)
-						{
-							entry = new AppMessageUInt8() { Value = bytes[index] };
-						}
-						else if (l == 2)
-						{
-							entry = new AppMessageUInt16() { Value = BitConverter.ToUInt16(bytes, index) };
-						}
-						else if (l == 4)
-						{
-							entry = new AppMessageUInt32() { Value = BitConverter.ToUInt32(bytes, index) };
-						}
-						else
-						{
-							throw new InvalidOperationException("Invalid signed integer length");
-						}
+						entry = new AppMessageInt32() { Value = BitConverter.ToInt32(bytes, index) };
 					}
 					else
 					{
-						throw new InvalidOperationException("Unknown tuple type");
+						throw new PebbleException("Invalid signed integer length");
 					}
-					index += l;
-					entry.Key = k;
-					Values.Add(entry);
 				}
+				else if (t == (byte)PackedType.String)
+				{
+					entry = new AppMessageString() { Value = System.Text.Encoding.UTF8.GetString(bytes, index, l) };
+				}
+				else if (t == (byte)PackedType.Unsigned)
+				{
+					if (l == 1)
+					{
+						entry = new AppMessageUInt8() { Value = bytes[index] };
+					}
+					else if (l == 2)
+					{
+						entry = new AppMessageUInt16() { Value = BitConverter.ToUInt16(bytes, index) };
+					}
+					else if (l == 4)
+					{
+						entry = new AppMessageUInt32() { Value = BitConverter.ToUInt32(bytes, index) };
+					}
+					else
+					{
+                        throw new PebbleException("Invalid signed integer length");
+					}
+				}
+				else
+				{
+                    throw new PebbleException("Unknown tuple type");
+				}
+				index += l;
+				entry.Key = k;
+				Values.Add(entry);
 			}
 		}
 
@@ -203,7 +199,11 @@ namespace PebbleSharp.Core.AppMessage
     {
         public uint Key { get; set; }
         public abstract PackedType PackedType { get; }
-        public abstract ushort Length { get; }
+
+        public virtual ushort Length
+        {
+            get { return (ushort) System.Runtime.InteropServices.Marshal.SizeOf<T>(); }
+        }
 
         public virtual T Value { get; set; }
         public abstract byte[] ValueBytes { get; set; }
@@ -220,6 +220,11 @@ namespace PebbleSharp.Core.AppMessage
                 return bytes.ToArray();
             }
         }
+
+        public new virtual string ToString()
+        {
+            return System.Convert.ToString(Value);
+        }
     }
 
     public class AppMessageUInt8 : AppMessageDictionaryEntry<byte>
@@ -229,30 +234,24 @@ namespace PebbleSharp.Core.AppMessage
             get { return PackedType.Unsigned; }
         }
 
-        public override ushort Length
-        {
-            get { return sizeof(byte); }
-        }
-
         public override byte[] ValueBytes
         {
             get { return new byte[] {Value}; }
             set
             {
-                if (value.Length == Length)
+                if (value == null)
+                {
+                    throw new ArgumentNullException("value");
+                }
+                else if (value.Length == Length)
                 {
                     Value = value[0];
                 }
                 else
                 {
-                    throw new InvalidOperationException("Incorrect # of bytes");
+                    throw new PebbleException("Incorrect # of bytes");
                 }
             }
-        }
-
-        public override string ToString()
-        {
-            return Value.ToString();
         }
     }
 
@@ -263,30 +262,24 @@ namespace PebbleSharp.Core.AppMessage
             get { return PackedType.Unsigned; }
         }
 
-        public override ushort Length
-        {
-            get { return sizeof(UInt16); }
-        }
-
         public override byte[] ValueBytes
         {
             get { return BitConverter.GetBytes(Value); }
             set
             {
-                if (value.Length == Length)
+                if (value == null)
+                {
+                    throw new ArgumentNullException("value");
+                }
+                else if (value.Length == Length)
                 {
                     Value = BitConverter.ToUInt16(value,0);
                 }
                 else
                 {
-                    throw new InvalidOperationException("Incorrect # of bytes");
+                    throw new PebbleException("Incorrect # of bytes");
                 }
             }
-        }
-
-        public override string ToString()
-        {
-            return Value.ToString();
         }
     }
 
@@ -297,30 +290,24 @@ namespace PebbleSharp.Core.AppMessage
             get { return PackedType.Unsigned; }
         }
 
-        public override ushort Length
-        {
-            get { return sizeof(UInt32); }
-        }
-
         public override byte[] ValueBytes
         {
             get { return BitConverter.GetBytes(Value); }
             set
             {
-                if (value.Length == Length)
+                if (value == null)
+                {
+                    throw new ArgumentNullException("value");
+                }
+                else if (value.Length == Length)
                 {
                     Value = BitConverter.ToUInt32(value, 0);
                 }
                 else
                 {
-                    throw new InvalidOperationException("Incorrect # of bytes");
+                    throw new PebbleException("Incorrect # of bytes");
                 }
             }
-        }
-
-        public override string ToString()
-        {
-            return Value.ToString();
         }
     }
 
@@ -331,30 +318,24 @@ namespace PebbleSharp.Core.AppMessage
             get { return PackedType.Signed; }
         }
 
-        public override ushort Length
-        {
-            get { return sizeof(sbyte); }
-        }
-
         public override byte[] ValueBytes
         {
             get { return new byte[] { Convert.ToByte(Value) }; }
             set
             {
-                if (value.Length == Length)
+                if (value == null)
+                {
+                    throw new ArgumentNullException("value");
+                }
+                else if (value.Length == Length)
                 {
                     Value = Convert.ToSByte(value);
                 }
                 else
                 {
-                    throw new InvalidOperationException("Incorrect # of bytes");
+                    throw new PebbleException("Incorrect # of bytes");
                 }
             }
-        }
-
-        public override string ToString()
-        {
-            return Value.ToString();
         }
     }
 
@@ -365,30 +346,24 @@ namespace PebbleSharp.Core.AppMessage
             get { return PackedType.Signed; }
         }
 
-        public override ushort Length
-        {
-            get { return sizeof(Int16); }
-        }
-
         public override byte[] ValueBytes
         {
             get { return BitConverter.GetBytes(Value); }
             set
             {
-                if (value.Length == Length)
+                if (value == null)
+                {
+                    throw new ArgumentNullException("value");
+                }
+                else if (value.Length == Length)
                 {
                     Value = BitConverter.ToInt16(value, 0);
                 }
                 else
                 {
-                    throw new InvalidOperationException("Incorrect # of bytes");
+                    throw new PebbleException("Incorrect # of bytes");
                 }
             }
-        }
-
-        public override string ToString()
-        {
-            return Value.ToString();
         }
     }
 
@@ -399,30 +374,24 @@ namespace PebbleSharp.Core.AppMessage
             get { return PackedType.Signed; }
         }
 
-        public override ushort Length
-        {
-            get { return sizeof(Int32); }
-        }
-
         public override byte[] ValueBytes
         {
             get { return BitConverter.GetBytes(Value); }
             set
             {
-                if (value.Length == Length)
+                if (value == null)
+                {
+                    throw new ArgumentNullException("value");
+                }
+                else if (value.Length == Length)
                 {
                     Value = BitConverter.ToInt32(value, 0);
                 }
                 else
                 {
-                    throw new InvalidOperationException("Incorrect # of bytes");
+                    throw new PebbleException("Incorrect # of bytes");
                 }
             }
-        }
-
-        public override string ToString()
-        {
-            return Value.ToString();
         }
     }
 
@@ -465,7 +434,11 @@ namespace PebbleSharp.Core.AppMessage
             }
             set
             {
-                if (value.Length <= ushort.MaxValue)
+                if (value == null)
+                {
+                    throw new ArgumentNullException("value");
+                }
+                else if (value.Length <= ushort.MaxValue)
                 {
                     Value = System.Text.UTF8Encoding.UTF8.GetString(value,0,value.Length);
                 }
@@ -474,11 +447,6 @@ namespace PebbleSharp.Core.AppMessage
                     throw new OverflowException("Specified string is too large for length to fit in a ushort");
                 }
             }
-        }
-
-        public override string ToString()
-        {
-            return Value.ToString();
         }
     }
 
@@ -499,7 +467,11 @@ namespace PebbleSharp.Core.AppMessage
             get { return Value; }
             set
             {
-                if (value.Length <= ushort.MaxValue)
+                if (value == null)
+                {
+                    throw new ArgumentNullException("value");
+                }
+                else if (value.Length <= ushort.MaxValue)
                 {
                     Value = value;
                 }
@@ -512,13 +484,7 @@ namespace PebbleSharp.Core.AppMessage
 
         public override string ToString()
         {
-            var s = new StringBuilder();
-            foreach(var b in Value)
-            {
-                s.Append(b.ToString());
-                s.Append(",");
-            }
-            return s.ToString();
+            return BitConverter.ToString(Value).Replace("-", "").ToLower();
         }
     }
 }

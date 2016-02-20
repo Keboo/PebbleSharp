@@ -16,10 +16,7 @@ namespace PebbleSharp.Core
 
 		public byte[] GetBytes()
 		{
-			var bytes = new List<byte>();
-			bytes.Add(Command);
-			bytes.Add((byte)Response);
-			return bytes.ToArray();
+			return new byte[]{Command,(byte)Response};
 		}
 	}
 }

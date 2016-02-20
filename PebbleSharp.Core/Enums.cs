@@ -187,9 +187,11 @@ namespace PebbleSharp.Core
 		SPALDING_BB2 = 0xFB,
 	}
 
+    //note that the names of these values are important, <platform>.ToString()
+    //is used to locate the correct platform specific subdirectory in appbundles
 	public enum SoftwarePlatform : byte
 	{
-		UNKNOWN,
+        UNKNOWN,
 		APLITE,
 		BASALT,
 		CHALK
@@ -199,34 +201,30 @@ namespace PebbleSharp.Core
 	{
 		private static Dictionary<Hardware, SoftwarePlatform> Platforms;
 
-		private static void Initialize()
-		{
-			if (Platforms == null)
-			{
-				Platforms = new Dictionary<Hardware, SoftwarePlatform>();
-				Platforms.Add(Hardware.UNKNOWN, SoftwarePlatform.UNKNOWN);
-				Platforms.Add(Hardware.TINTIN_EV1, SoftwarePlatform.APLITE);
-				Platforms.Add(Hardware.TINTIN_EV2,SoftwarePlatform.APLITE);
-				Platforms.Add(Hardware.TINTIN_EV2_3, SoftwarePlatform.APLITE);
-				Platforms.Add(Hardware.TINTIN_EV2_4,SoftwarePlatform.APLITE);
-				Platforms.Add(Hardware.TINTIN_V1_5,SoftwarePlatform.APLITE);
-				Platforms.Add(Hardware.BIANCA,SoftwarePlatform.APLITE);
-				Platforms.Add(Hardware.SNOWY_EVT2,SoftwarePlatform.BASALT);
-				Platforms.Add(Hardware.SNOWY_DVT,SoftwarePlatform.BASALT);
-				Platforms.Add(Hardware.BOBBY_SMILES,SoftwarePlatform.BASALT);
-				Platforms.Add(Hardware.SPALDING_EVT,SoftwarePlatform.CHALK);
-				Platforms.Add(Hardware.SPALDING,SoftwarePlatform.CHALK);
-				Platforms.Add(Hardware.TINTIN_BB,SoftwarePlatform.APLITE);
-				Platforms.Add(Hardware.TINTIN_BB2,SoftwarePlatform.APLITE);
-				Platforms.Add(Hardware.SNOWY_BB,SoftwarePlatform.BASALT);
-				Platforms.Add(Hardware.SNOWY_BB2,SoftwarePlatform.BASALT);
-				Platforms.Add(Hardware.SPALDING_BB2,SoftwarePlatform.CHALK);
-			}
-		}
+	    static HardwareHelpers()
+	    {
+            Platforms = new Dictionary<Hardware, SoftwarePlatform>();
+            Platforms.Add(Hardware.UNKNOWN, SoftwarePlatform.UNKNOWN);
+            Platforms.Add(Hardware.TINTIN_EV1, SoftwarePlatform.APLITE);
+            Platforms.Add(Hardware.TINTIN_EV2, SoftwarePlatform.APLITE);
+            Platforms.Add(Hardware.TINTIN_EV2_3, SoftwarePlatform.APLITE);
+            Platforms.Add(Hardware.TINTIN_EV2_4, SoftwarePlatform.APLITE);
+            Platforms.Add(Hardware.TINTIN_V1_5, SoftwarePlatform.APLITE);
+            Platforms.Add(Hardware.BIANCA, SoftwarePlatform.APLITE);
+            Platforms.Add(Hardware.SNOWY_EVT2, SoftwarePlatform.BASALT);
+            Platforms.Add(Hardware.SNOWY_DVT, SoftwarePlatform.BASALT);
+            Platforms.Add(Hardware.BOBBY_SMILES, SoftwarePlatform.BASALT);
+            Platforms.Add(Hardware.SPALDING_EVT, SoftwarePlatform.CHALK);
+            Platforms.Add(Hardware.SPALDING, SoftwarePlatform.CHALK);
+            Platforms.Add(Hardware.TINTIN_BB, SoftwarePlatform.APLITE);
+            Platforms.Add(Hardware.TINTIN_BB2, SoftwarePlatform.APLITE);
+            Platforms.Add(Hardware.SNOWY_BB, SoftwarePlatform.BASALT);
+            Platforms.Add(Hardware.SNOWY_BB2, SoftwarePlatform.BASALT);
+            Platforms.Add(Hardware.SPALDING_BB2, SoftwarePlatform.CHALK);
+	    }
 
 		public static SoftwarePlatform GetSoftwarePlatform(this Hardware hardware)
 		{
-			Initialize();
 			return Platforms[hardware];
 		}
 	}

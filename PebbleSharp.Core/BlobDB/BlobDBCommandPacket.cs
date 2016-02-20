@@ -37,15 +37,15 @@ namespace PebbleSharp.Core.BlobDB
 			var bytes = new List<byte>();
 			bytes.Add((byte)Command);
 			bytes.AddRange(BitConverter.GetBytes(Token));
-			bytes.Add((byte)this.Database);
-			if (this.Command == BlobCommand.Insert || this.Command == BlobCommand.Delete)
+			bytes.Add((byte)Database);
+			if (Command == BlobCommand.Insert || Command == BlobCommand.Delete)
 			{
-				bytes.Add(this.KeyLength);
-				bytes.AddRange(this.Key);
-				if (this.Command == BlobCommand.Insert)
+				bytes.Add(KeyLength);
+				bytes.AddRange(Key);
+				if (Command == BlobCommand.Insert)
 				{
-					bytes.AddRange(BitConverter.GetBytes(this.ValueLength));
-					bytes.AddRange(this.Value);
+					bytes.AddRange(BitConverter.GetBytes(ValueLength));
+					bytes.AddRange(Value);
 				}
 			}
 			return bytes.ToArray();

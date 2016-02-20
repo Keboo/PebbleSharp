@@ -6,13 +6,18 @@ namespace PebbleSharp.Core.BlobDB
 	public class BlobDBClient
 	{
 		private Pebble _pebble;
-		private Random _random;
+		private static Random _random;
 
-		public BlobDBClient(Pebble pebble)
+	    static BlobDBClient()
+	    {
+            _random = new Random();
+	    }
+
+	    internal BlobDBClient(Pebble pebble)
 		{
 			_pebble = pebble;
-			_random = new Random();
 		}
+
 		public async Task<BlobDBResponsePacket> Insert(BlobDatabase database, byte[] key, byte[] value)
 		{
 			var insertCommand = new BlobDBCommandPacket()

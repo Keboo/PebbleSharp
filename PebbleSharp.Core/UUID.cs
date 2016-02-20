@@ -45,9 +45,13 @@ namespace PebbleSharp.Core
             return ( _data != null ? _data.GetHashCode() : 0 );
         }
 
-        public byte[] FromString(string s)
+        public static byte[] FromString(string s)
         {
-            if (s.Length != 36)
+            if (string.IsNullOrEmpty(s))
+            {
+                throw new ArgumentNullException("s");
+            }
+            else if (s.Length != 36)
             {
                 throw new ArgumentException("Invalid uuid string");
             }

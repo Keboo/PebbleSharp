@@ -15,7 +15,7 @@ namespace PebbleSharp.Core.Bundles
         protected override void LoadData( IZip zip )
         {
             if ( string.IsNullOrWhiteSpace( Manifest.Application.Filename ) )
-                throw new InvalidOperationException( "Bundle does not contain pebble app" );
+                throw new PebbleException("Bundle does not contain pebble app");
 
 			using ( Stream binStream = zip.OpenEntryStream( this.PlatformSubdirectory()+Manifest.Application.Filename ) )
             {

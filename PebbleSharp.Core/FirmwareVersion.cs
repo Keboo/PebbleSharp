@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace PebbleSharp.Core
 {
@@ -21,6 +23,24 @@ namespace PebbleSharp.Core
         public bool IsRecovery { get; private set; }
 		public Hardware HardwarePlatform { get; private set; }
         public byte MetadataVersion { get; private set; }
+
+        public IList<int> ParseVersionComponents()
+        {
+            var components = new List<int>();
+            if (!string.IsNullOrWhiteSpace(Version))
+            {
+                string cleanedVersion = Version.Replace("v", "");
+                foreach (var component in cleanedVersion.Split(new char[] {'.', '-'}, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    int v;
+                    if (int.TryParse(component, out v))
+                    {
+                        components.Add(v);
+                    }
+                }
+            }
+            return components;
+        }
 
         public override string ToString()
         {

@@ -11,19 +11,15 @@ namespace PebbleSharp.Core.Install
 	public class InstallClient
 	{
 		private Pebble _pebble;
-		public InstallClient(Pebble pebble)
+
+        internal InstallClient(Pebble pebble)
 		{
 			_pebble = pebble;
 		}
+
 		public async Task InstallAppAsync( AppBundle bundle, IProgress<ProgressValue> progress = null )
 		{
-
-			string version = _pebble.Firmware.Version;
-			version = version.Replace("v", "");
-			var components = version.Split(new char[] { '.','-' }, StringSplitOptions.RemoveEmptyEntries);
-
-			int i;
-			IList<int> versionComponents = components.Where(x=>int.TryParse(x,out i)).Select(x => int.Parse(x)).ToList();
+            IList<int> versionComponents = _pebble.Firmware.ParseVersionComponents();
 			if (versionComponents[0] < 3) 
 			{
 				await InstallAppLegacyV2 (bundle, progress);
@@ -33,7 +29,6 @@ namespace PebbleSharp.Core.Install
 				await InstallAppAsyncV3 (bundle, progress);
 			}
 		}
-
 
 		private async Task InstallAppAsyncV3(AppBundle bundle,IProgress<ProgressValue> progress)
 		{
@@ -57,7 +52,7 @@ namespace PebbleSharp.Core.Install
 
 				if (!runStateResult.Success)
 				{
-					throw new InvalidOperationException("Pebble replied invalid run state");
+                    throw new PebbleException("Pebble replied invalid run state");
 				}
 
 				if (!meta.UUID.Equals(runStateResult.UUID))
@@ -65,13 +60,13 @@ namespace PebbleSharp.Core.Install
 					var response = new AppFetchResponsePacket();
 					response.Response = AppFetchStatus.InvalidUUID;
 					await _pebble.SendMessageNoResponseAsync(Endpoint.AppFetch, response.GetBytes());
-					throw new InvalidOperationException("The pebble requested the wrong UUID");
+                    throw new PebbleException("The pebble requested the wrong UUID");
 				}
 
 				var putBytesResponse = await _pebble.PutBytesClient.PutBytes(bundle.App, TransferType.Binary, appInstallId:(uint)runStateResult.AppId);
 				if (!putBytesResponse)
 				{
-					throw new InvalidOperationException("Putbytes failed");
+                    throw new PebbleException("Putbytes failed");
 				}
 
 				if (bundle.HasResources)
@@ -79,7 +74,7 @@ namespace PebbleSharp.Core.Install
 					putBytesResponse = await _pebble.PutBytesClient.PutBytes(bundle.Resources, TransferType.Resources, appInstallId:(uint)runStateResult.AppId);
 					if (!putBytesResponse)
 					{
-						throw new InvalidOperationException("Putbytes failed");
+                        throw new PebbleException("Putbytes failed");
 					}
 				}
 
