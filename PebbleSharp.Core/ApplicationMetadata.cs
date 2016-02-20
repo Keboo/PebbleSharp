@@ -23,6 +23,27 @@ namespace PebbleSharp.Core
             get { return string.Format("{0}.{1}", StructMajorVersion, StructMinorVersion); }
         }
 
+		/*
+		  source: https://github.com/pebble/libpebble2/blob/d9ecce4a345f31217fb510f2f4e840f7cdda235b/libpebble2/util/bundle.py
+		  python struct packing: https://docs.python.org/2/library/struct.html
+		STRUCT_DEFINITION = [
+            '8s',   # header = char[8]
+            '2B',   # struct version = byte[2]
+            '2B',   # sdk version = byte[2]
+            '2B',   # app version =byte[2]
+            'H',    # size = ushort
+            'I',    # offset = uint
+            'I',    # crc = uint
+            '32s',  # app name = char[32]
+            '32s',  # company name = char[32]
+            'I',    # icon resource id = uint
+            'I',    # symbol table address = uint
+            'I',    # flags = uint
+            'I',    # num relocation list entries = uint
+            '16s'   # uuid = char[16]
+    ]
+		*/
+
         // The data as stored in the binary
         [Serializable(Order = 0, Size = 8)]
         public string Header { get; set; }
@@ -54,11 +75,11 @@ namespace PebbleSharp.Core
         public uint SymbolTableAddress { get; set; }
         [Serializable(Order = 14)]
         public uint Flags { get; set; }
+        //[Serializable(Order = 15)]
+        //public uint RelocationListStart { get; set; }
         [Serializable(Order = 15)]
-        public uint RelocationListStart { get; set; }
-        [Serializable(Order = 16)]
         public uint RelocationListItemCount { get; set; }
-        [Serializable(Order = 17)]
+        [Serializable(Order = 16)]
         public UUID UUID { get; set; }
 
         public override string ToString()

@@ -29,7 +29,7 @@ namespace PebbleSharp.Universal.Universal.ViewModels
 
         private async Task LoadAppsAsync()
         {
-            var appBankContents = await Pebble.GetAppbankContentsAsync();
+            var appBankContents = await Pebble.InstallClient.GetAppbankContentsAsync();
             Apps.Clear();
             if (appBankContents != null && appBankContents.AppBank != null && appBankContents.AppBank.Apps != null)
             {

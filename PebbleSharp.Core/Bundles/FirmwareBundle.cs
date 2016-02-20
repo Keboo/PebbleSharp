@@ -10,7 +10,7 @@ namespace PebbleSharp.Core.Bundles
         protected override void LoadData(IZip zip)
         {
             if (string.IsNullOrWhiteSpace(Manifest.Firmware.Filename))
-                throw new InvalidOperationException("Bundle does not contain firmware");
+                throw new PebbleException("Bundle does not contain firmware");
 
             using (Stream binStream = zip.OpenEntryStream(Manifest.Firmware.Filename))
             {

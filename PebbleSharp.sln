@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PebbleSharp.Core", "PebbleSharp.Core\PebbleSharp.Core.csproj", "{AE0F69FF-97C2-4E55-A3C9-B73E68668DDA}"
 EndProject
@@ -27,11 +27,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PebbleSharp.Universal.Windo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PebbleCmd", "PebbleCmd\PebbleCmd.csproj", "{242D37E6-027D-4F98-AC74-D95A9B03E85D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PebbleSharp.Mono.BlueZ5", "PebbleSharp.Mono.BlueZ5\PebbleSharp.Mono.BlueZ5.csproj", "{26FE7CCB-5422-4A25-9080-163EB91C3150}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Demo\PebbleSharp.Universal\PebbleSharp.Universal.Shared\PebbleSharp.Universal.Shared.projitems*{5732948c-77a3-415c-8204-f6647dec222a}*SharedItemsImports = 13
 		Demo\PebbleSharp.Universal\PebbleSharp.Universal.Shared\PebbleSharp.Universal.Shared.projitems*{3ad18d88-6c9a-4f70-98fd-bfa10d8e1148}*SharedItemsImports = 4
-		PebbleSharp.Universal\PebbleSharp.Universal.Shared\PebbleSharp.Universal.Shared.projitems*{89e8645d-fd7b-4195-8d1f-7e0717424e4b}*SharedItemsImports = 4
+		Demo\PebbleSharp.Universal\PebbleSharp.Universal.Shared\PebbleSharp.Universal.Shared.projitems*{89e8645d-fd7b-4195-8d1f-7e0717424e4b}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
@@ -512,6 +514,62 @@ Global
 		{242D37E6-027D-4F98-AC74-D95A9B03E85D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{242D37E6-027D-4F98-AC74-D95A9B03E85D}.Release|x64.ActiveCfg = Release|Any CPU
 		{242D37E6-027D-4F98-AC74-D95A9B03E85D}.Release|x86.ActiveCfg = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Ad-Hoc|Any CPU.ActiveCfg = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Ad-Hoc|Any CPU.Build.0 = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Ad-Hoc|ARM.ActiveCfg = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Ad-Hoc|ARM.Build.0 = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Ad-Hoc|iPhoneSimulator.Build.0 = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Ad-Hoc|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Ad-Hoc|Mixed Platforms.Build.0 = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Ad-Hoc|x64.ActiveCfg = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Ad-Hoc|x64.Build.0 = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Ad-Hoc|x86.ActiveCfg = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Ad-Hoc|x86.Build.0 = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.AppStore|Any CPU.Build.0 = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.AppStore|ARM.ActiveCfg = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.AppStore|ARM.Build.0 = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.AppStore|iPhone.Build.0 = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.AppStore|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.AppStore|iPhoneSimulator.Build.0 = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.AppStore|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.AppStore|Mixed Platforms.Build.0 = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.AppStore|x64.ActiveCfg = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.AppStore|x64.Build.0 = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.AppStore|x86.ActiveCfg = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.AppStore|x86.Build.0 = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Debug|ARM.Build.0 = Debug|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Debug|x64.Build.0 = Debug|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Debug|x86.Build.0 = Debug|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Release|ARM.ActiveCfg = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Release|ARM.Build.0 = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Release|iPhone.Build.0 = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Release|x64.ActiveCfg = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Release|x64.Build.0 = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Release|x86.ActiveCfg = Release|Any CPU
+		{26FE7CCB-5422-4A25-9080-163EB91C3150}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
