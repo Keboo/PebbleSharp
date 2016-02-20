@@ -87,7 +87,7 @@ namespace PebbleSharp.Core.Install
 			}
 			else 
 			{
-				throw new DataMisalignedException("BlobDB Insert Failed");
+				throw new PebbleException("BlobDB Insert Failed");
 			}
 		}
 

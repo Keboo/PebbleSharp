@@ -202,7 +202,7 @@ namespace PebbleSharp.Core.AppMessage
 
         public virtual ushort Length
         {
-            get { return (ushort) System.Runtime.InteropServices.Marshal.SizeOf<T>(); }
+            get { return (ushort) System.Runtime.InteropServices.Marshal.SizeOf(typeof(T)); }
         }
 
         public virtual T Value { get; set; }
